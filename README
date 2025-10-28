@@ -1,0 +1,135 @@
+# 🚀 Learn Go with Tests - My Journey
+
+[![Go Version](https://img.shields.io/badge/Go-1.25.3-00ADD8?style=flat&logo=go)](https://golang.org/)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/IgorLimaPonce/learn-go-with-tests)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Este repositório documenta minha jornada de aprendizado em Go, seguindo o excelente guia [Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/) de Chris James.
+
+## 📚 Sobre o Projeto
+
+Estou estudando Go com foco em **Test-Driven Development (TDD)**, uma metodologia que prioriza a escrita de testes antes da implementação. Este repositório contém todos os exercícios e desafios que completei durante o curso.
+
+### 🎯 Objetivos de Aprendizado
+
+- ✅ Dominar a sintaxe e fundamentos de Go
+- ✅ Aplicar TDD no desenvolvimento diário
+- ✅ Compreender os padrões e melhores práticas da linguagem
+- ✅ Construir software robusto e testável
+- ✅ Desenvolver habilidades em testes unitários e de integração
+
+## 📂 Estrutura do Repositório
+
+```
+learn-go-with-tests/
+├── Hello-World/         # Primeiros passos: Hello World com testes
+│   ├── hello.go
+│   └── hello_test.go
+├── go.mod               # Gerenciamento de módulos Go
+└── README.md
+```
+
+## 🏃 Como Executar
+
+### Pré-requisitos
+
+- Go 1.25.3 ou superior instalado ([Download Go](https://golang.org/dl/))
+
+### Executar o Projeto
+
+```bash
+# Clone o repositório
+git clone https://github.com/IgorLimaPonce/learn-go-with-tests.git
+cd learn-go-with-tests
+
+# Executar um exemplo específico
+cd Hello-World
+go run hello.go
+```
+
+### Executar os Testes
+
+```bash
+# Executar todos os testes
+go test ./...
+
+# Executar testes de um módulo específico
+cd Hello-World
+go test -v
+
+# Executar testes com coverage
+go test -cover ./...
+```
+
+## 📖 Módulos Completados
+
+### ✅ Hello World
+- **Conceitos aprendidos:** Funções, testes básicos, `*testing.T`
+- **Arquivos:** [hello.go](Hello-World/hello.go), [hello_test.go](Hello-World/hello_test.go)
+- **Status:** Concluído
+
+### 🔜 Próximos Passos
+- [ ] Integers
+- [ ] Iteration
+- [ ] Arrays and Slices
+- [ ] Structs, Methods & Interfaces
+- [ ] Pointers & Errors
+- [ ] Maps
+- [ ] Dependency Injection
+- [ ] Mocking
+- [ ] Concurrency
+- [ ] Select
+- [ ] Reflection
+- [ ] Sync
+- [ ] Context
+- [ ] Property Based Tests
+
+## 💡 Principais Aprendizados
+
+### Test-Driven Development (TDD)
+O ciclo TDD que estou praticando:
+
+1. **Red** 🔴 - Escrever um teste que falha
+2. **Green** 🟢 - Escrever código mínimo para passar no teste
+3. **Refactor** 🔄 - Melhorar o código mantendo os testes passando
+
+### Boas Práticas em Go
+- Arquivos de teste devem ter o sufixo `_test.go`
+- Funções de teste devem começar com `Test`
+- Usar `*testing.T` para reportar falhas
+- Manter testes simples e legíveis
+
+## 🛠️ Tecnologias
+
+- **Linguagem:** Go 1.25.3
+- **Framework de Testes:** `testing` (biblioteca padrão)
+- **Metodologia:** Test-Driven Development (TDD)
+
+## 📚 Recursos
+
+- [Learn Go with Tests - GitBook](https://quii.gitbook.io/learn-go-with-tests/)
+- [Documentação Oficial do Go](https://golang.org/doc/)
+- [Go by Example](https://gobyexample.com/)
+- [Effective Go](https://golang.org/doc/effective_go)
+
+## 🤝 Contribuições
+
+Este é um repositório pessoal de estudos, mas sugestões e feedbacks são sempre bem-vindos! Sinta-se à vontade para abrir uma issue ou enviar sugestões.
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👨‍💻 Autor
+
+**Igor L**
+
+- Estudante dedicado de Go
+- Apaixonado por código limpo e testes
+- Sempre em busca de aprender e melhorar
+
+---
+
+⭐ Se este repositório foi útil para você, considere dar uma estrela!
+
+*Última atualização: Janeiro 2025*
