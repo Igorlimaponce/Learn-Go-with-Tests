@@ -69,8 +69,8 @@ func SumAllAlternative(numbersToSum ...[]int) []int {
 func SumAllAlternative2(numbersToSum ...[]int) []int {
 	var sums []int
 	// numbers aqui vai ser um slice e vai passar pelo for com cada parte separada do numbersToSum	for _, numbers := range numbersToSum {
-	fmt.Printf("Tipo: %T\n", numbersToSum)
-	fmt.Printf("Quantidade de slices: %d\n", len(numbersToSum))
+	// fmt.Printf("Tipo: %T\n", numbersToSum)
+	// fmt.Printf("Quantidade de slices: %d\n", len(numbersToSum))
 
 	for _, numbers := range numbersToSum {
 		sums = append(sums, SumSlices(numbers))
@@ -82,6 +82,7 @@ func SumAllAlternative2(numbersToSum ...[]int) []int {
 func SumAllTails(slices ...[]int) []int {
 	var sums []int
 	for _, i := range slices {
+		// O objetivo era retornar a soma de todos os elementos menos o primeiro
 		// Aqui ele pega a partir do primeiro numero
 		// Nesse caso o teste passa normalmente
 		i = i[1:]

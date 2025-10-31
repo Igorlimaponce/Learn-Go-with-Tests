@@ -22,9 +22,20 @@ Estou estudando Go com foco em **Test-Driven Development (TDD)**, uma metodologi
 
 ```
 learn-go-with-tests/
-├── Hello-World/         # Primeiros passos: Hello World com testes
+├── hello-world/         # Primeiros passos: Hello World com testes
 │   ├── hello.go
 │   └── hello_test.go
+├── integers/            # Operações com inteiros e documentação
+│   ├── adder.go
+│   └── adder_test.go
+├── iteration/           # Loops e performance com benchmarks
+│   ├── iteration.go
+│   └── iteration_test.go
+├── arrays_slices/       # Arrays, slices e parâmetros variádicos
+│   ├── arrays_slices.go
+│   └── arrays_slices_test.go
+├── TDD-types/           # Documentação sobre tipos de testes em Go
+│   └── TDD_test.go
 ├── go.mod               # Gerenciamento de módulos Go
 └── README.md
 ```
@@ -43,7 +54,7 @@ git clone https://github.com/IgorLimaPonce/learn-go-with-tests.git
 cd learn-go-with-tests
 
 # Executar um exemplo específico
-cd Hello-World
+cd hello-world
 go run hello.go
 ```
 
@@ -54,24 +65,78 @@ go run hello.go
 go test ./...
 
 # Executar testes de um módulo específico
-cd Hello-World
+cd arrays_slices
 go test -v
 
 # Executar testes com coverage
 go test -cover ./...
+
+# Executar benchmarks
+cd iteration
+go test -bench=.
 ```
 
 ## 📖 Módulos Completados
 
-### ✅ Hello World
-- **Conceitos aprendidos:** Funções, testes básicos, `*testing.T`
-- **Arquivos:** [hello.go](Hello-World/hello.go), [hello_test.go](Hello-World/hello_test.go)
-- **Status:** Concluído
+### ✅ 1. Hello World
+- **Conceitos aprendidos:** 
+  - Funções básicas
+  - Testes com `*testing.T`
+  - Subtestes com `t.Run()`
+  - Helper functions com `t.Helper()`
+  - Switch statements
+  - Múltiplos idiomas (English, Spanish, French)
+- **Arquivos:** [`hello.go`](hello-world/hello.go), [`hello_test.go`](hello-world/hello_test.go)
+- **Status:** ✅ Concluído
+
+### ✅ 2. Integers
+- **Conceitos aprendidos:**
+  - Operações aritméticas básicas
+  - Documentação com comentários
+  - Examples tests para documentação
+  - Formatação com `%d` para inteiros
+- **Arquivos:** [`adder.go`](integers/adder.go), [`adder_test.go`](integers/adder_test.go)
+- **Status:** ✅ Concluído
+
+### ✅ 3. Iteration
+- **Conceitos aprendidos:**
+  - Loops com `for`
+  - Performance com `strings.Builder`
+  - Benchmarks com `*testing.B` e `b.Loop()`
+  - Otimização de concatenação de strings
+  - Example tests com Output comments
+- **Arquivos:** [`iteration.go`](iteration/iteration.go), [`iteration_test.go`](iteration/iteration_test.go)
+- **Destaques:** Melhoria de 50% na performance usando `strings.Builder` ao invés de concatenação direta
+- **Status:** ✅ Concluído
+
+### ✅ 4. Arrays and Slices
+- **Conceitos aprendidos:**
+  - Diferença entre Arrays `[5]int` e Slices `[]int`
+  - Iteração com `range` (valor vs índice)
+  - Parâmetros variádicos `...[]int`
+  - Slice de slices `[][]int`
+  - Funções `append()` e `make()`
+  - Slicing com `slice[1:]` (pegar tail)
+  - Comparação de slices com `slices.Equal()`
+  - Helper functions para testes reutilizáveis
+- **Arquivos:** [`arrays_slices.go`](arrays_slices/arrays_slices.go), [`arrays_slices_test.go`](arrays_slices/arrays_slices_test.go)
+- **Funções implementadas:**
+  - `SumArray()` - Soma de arrays
+  - `SumSlices()` - Soma de slices
+  - `SumAll()` - Soma múltiplos slices
+  - `SumAllAlternative()` - Versão com `make()`
+  - `SumAllAlternative2()` - Versão com `append()`
+  - `SumAllTails()` - Soma excluindo primeiro elemento
+- **Status:** ✅ Concluído
+
+### 📚 TDD Types (Documentação)
+- **Conceitos documentados:**
+  - `func Test*` - Testes unitários básicos
+  - `func Example*` - Testes com output para documentação
+  - `func Benchmark*` - Testes de performance
+- **Arquivo:** [`TDD_test.go`](TDD-types/TDD_test.go)
 
 ### 🔜 Próximos Passos
-- [ ] Integers
-- [ ] Iteration
-- [ ] Arrays and Slices
 - [ ] Structs, Methods & Interfaces
 - [ ] Pointers & Errors
 - [ ] Maps
@@ -94,16 +159,49 @@ O ciclo TDD que estou praticando:
 3. **Refactor** 🔄 - Melhorar o código mantendo os testes passando
 
 ### Boas Práticas em Go
+
+#### Testes
 - Arquivos de teste devem ter o sufixo `_test.go`
 - Funções de teste devem começar com `Test`
 - Usar `*testing.T` para reportar falhas
+- Subtestes com `t.Run()` para organização
+- `t.Helper()` para melhor debugging
 - Manter testes simples e legíveis
+
+#### Performance
+- Usar `strings.Builder` para concatenação eficiente
+- Benchmarks para medir performance
+- Preferir `slices.Equal()` para comparar slices
+
+#### Código
+- Preferir `for _, value := range slice` quando não precisa do índice
+- Usar parâmetros variádicos `...Type` para flexibilidade
+- Arrays têm tamanho fixo `[5]int`, slices são dinâmicos `[]int`
+- `make()` pré-aloca capacidade, `append()` cresce dinamicamente
+
+### Comparações de Performance
+
+**Iteration Module:**
+- ✅ Concatenação direta: ~2x mais lento
+- ✅ `strings.Builder`: 50% mais rápido + menor uso de memória
 
 ## 🛠️ Tecnologias
 
 - **Linguagem:** Go 1.25.3
 - **Framework de Testes:** `testing` (biblioteca padrão)
 - **Metodologia:** Test-Driven Development (TDD)
+- **Bibliotecas utilizadas:**
+  - `strings` - Manipulação de strings
+  - `slices` - Operações com slices
+  - `fmt` - Formatação e I/O
+
+## 📊 Estatísticas do Projeto
+
+- **Módulos concluídos:** 4/15 (27%)
+- **Testes escritos:** 15+
+- **Benchmarks:** 1
+- **Examples:** 4
+- **Linhas de código:** ~300+
 
 ## 📚 Recursos
 
@@ -111,6 +209,7 @@ O ciclo TDD que estou praticando:
 - [Documentação Oficial do Go](https://golang.org/doc/)
 - [Go by Example](https://gobyexample.com/)
 - [Effective Go](https://golang.org/doc/effective_go)
+- [Go Package Documentation](https://pkg.go.dev/)
 
 ## 🤝 Contribuições
 
@@ -127,9 +226,12 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - Estudante dedicado de Go
 - Apaixonado por código limpo e testes
 - Sempre em busca de aprender e melhorar
+- Focado em TDD e boas práticas
 
 ---
 
 ⭐ Se este repositório foi útil para você, considere dar uma estrela!
+
+💬 Dúvidas ou sugestões? Abra uma issue!
 
 *Última atualização: Janeiro 2025*
