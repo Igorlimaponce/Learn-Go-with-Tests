@@ -74,3 +74,4 @@ func (t Triangle) Area() float64 {
 
 // Neste caso nao preciso passar parm pois ja consigo acessar c.Radius com a variavel c
 // Porém, caso necessario poderia adicionar um parm ao Area()
+//

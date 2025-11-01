@@ -37,3 +37,5 @@ func TestPerimeter(t *testing.T) {
 		// Sendo assim o %g mostra os numeros de forma mais precisa
 	})
 }
+
+//

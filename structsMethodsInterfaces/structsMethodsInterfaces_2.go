@@ -10,3 +10,5 @@ type Shape interface {
 
 // Como Rectangle e Circle ja possuem um methodo que se chama Area(), em Go ele ja consegue fazer o relacionamento automaticamente
 // Ou seja só por ter o Metodo Area, ambos já fazem parte da interface Shape
+
+//
