@@ -22,21 +22,36 @@ Estou estudando Go com foco em **Test-Driven Development (TDD)**, uma metodologi
 
 ```
 learn-go-with-tests/
-├── hello-world/         # Primeiros passos: Hello World com testes
+├── hello-world/                  # Primeiros passos: Hello World com testes
 │   ├── hello.go
 │   └── hello_test.go
-├── integers/            # Operações com inteiros e documentação
+├── integers/                     # Operações com inteiros e documentação
 │   ├── adder.go
 │   └── adder_test.go
-├── iteration/           # Loops e performance com benchmarks
+├── iteration/                    # Loops e performance com benchmarks
 │   ├── iteration.go
 │   └── iteration_test.go
-├── arrays_slices/       # Arrays, slices e parâmetros variádicos
+├── arrays_slices/                # Arrays, slices e parâmetros variádicos
 │   ├── arrays_slices.go
 │   └── arrays_slices_test.go
-├── TDD-types/           # Documentação sobre tipos de testes em Go
+├── structsMethodsInterfaces/     # Structs, métodos e interfaces
+│   ├── structsMethodsInterfaces.go
+│   ├── structsMethodsInterfaces_2.go
+│   ├── structsMethodsInterfaces_test.go
+│   └── structsMethodsInterfaces_2_test.go
+├── pointers_errors/              # Ponteiros, erros e mutabilidade
+│   ├── pointers_errors.go
+│   └── pointers_errors_test.go
+├── maps/                         # Maps e dicionários
+│   ├── dictionary.go
+│   └── dictionary_test.go
+├── exercises/                    # Exercícios práticos
+│   └── structsMethodsInterfaces/
+│       └── notifications/
+│           └── notifications.go  # Sistema de notificações polimórfico
+├── TDD-types/                    # Documentação sobre tipos de testes em Go
 │   └── TDD_test.go
-├── go.mod               # Gerenciamento de módulos Go
+├── go.mod                        # Gerenciamento de módulos Go
 └── README.md
 ```
 
@@ -56,6 +71,10 @@ cd learn-go-with-tests
 # Executar um exemplo específico
 cd hello-world
 go run hello.go
+
+# Executar o sistema de notificações
+cd exercises/structsMethodsInterfaces/notifications
+go run notifications.go
 ```
 
 ### Executar os Testes
@@ -65,11 +84,15 @@ go run hello.go
 go test ./...
 
 # Executar testes de um módulo específico
-cd arrays_slices
+cd structsMethodsInterfaces
 go test -v
 
 # Executar testes com coverage
 go test -cover ./...
+
+# Ver relatório detalhado de coverage
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
 
 # Executar benchmarks
 cd iteration
@@ -129,6 +152,97 @@ go test -bench=.
   - `SumAllTails()` - Soma excluindo primeiro elemento
 - **Status:** ✅ Concluído
 
+### ✅ 5. Structs, Methods & Interfaces
+- **Conceitos aprendidos:**
+  - Criação de structs customizadas (`Rectangle`, `Circle`, `Triangle`)
+  - Métodos com receivers `func (r Rectangle) Area() float64`
+  - Interfaces e polimorfismo (`Shape` interface)
+  - Resolução implícita de interfaces em Go
+  - Table-driven tests
+  - Structs anônimas para testes
+  - Associação de comportamento a tipos
+- **Arquivos:** 
+  - [`structsMethodsInterfaces.go`](structsMethodsInterfaces/structsMethodsInterfaces.go)
+  - [`structsMethodsInterfaces_2.go`](structsMethodsInterfaces/structsMethodsInterfaces_2.go)
+  - [`structsMethodsInterfaces_test.go`](structsMethodsInterfaces/structsMethodsInterfaces_test.go)
+  - [`structsMethodsInterfaces_2_test.go`](structsMethodsInterfaces/structsMethodsInterfaces_2_test.go)
+- **Funções implementadas:**
+  - `Perimeter()` - Cálculo de perímetro
+  - `(Rectangle) Area()` - Área do retângulo
+  - `(Circle) Area()` - Área do círculo (usando `math.Pi`)
+  - `(Triangle) Area()` - Área do triângulo
+- **Destaques:**
+  - Interface `Shape` com método `Area()`
+  - Table-driven tests para múltiplas formas geométricas
+  - Uso de `%g` para formatação precisa de floats
+- **Status:** ✅ Concluído
+
+### ✅ 6. Pointers & Errors
+- **Conceitos aprendidos:**
+  - Ponteiros `*Wallet` vs valores `Wallet`
+  - Mutabilidade de structs com receivers de ponteiro
+  - Endereçamento de memória com `&` e `%p`
+  - Criação e tratamento de erros customizados
+  - Variáveis de erro globais (`var ErrInsufficientFunds`)
+  - Interface `error` e retorno de `nil`
+  - Implementação da interface `Stringer` do pacote `fmt`
+  - Type customizado `Bitcoin` baseado em `int`
+- **Arquivos:** [`pointers_errors.go`](pointers_errors/pointers_errors.go), [`pointers_errors_test.go`](pointers_errors/pointers_errors_test.go)
+- **Tipos implementados:**
+  - `Bitcoin` - Type customizado com formatação
+  - `Wallet` - Struct para gerenciar saldo
+- **Métodos implementados:**
+  - `(w *Wallet) Deposit()` - Adiciona Bitcoin à carteira
+  - `(w *Wallet) Balance()` - Retorna saldo atual
+  - `(w *Wallet) Withdraw()` - Remove Bitcoin com validação
+  - `(b Bitcoin) String()` - Formatação customizada
+- **Destaques:**
+  - Sistema de carteira Bitcoin com validações
+  - Tratamento de erro para saldo insuficiente
+  - Uso de ponteiros para modificar estado
+  - Helper functions `checkError()` e `assertError()`
+- **Status:** ✅ Concluído
+
+### ✅ 7. Maps
+- **Conceitos aprendidos:**
+  - Maps como estrutura chave-valor `map[string]string`
+  - Type customizado `Dictionary` baseado em map
+  - Retorno duplo de maps: `value, ok := map[key]`
+  - Validação de existência de chaves
+  - Tratamento de erros em buscas
+  - Erros globais reutilizáveis
+  - Helper functions para asserções
+- **Arquivos:** [`dictionary.go`](maps/dictionary.go), [`dictionary_test.go`](maps/dictionary_test.go)
+- **Tipo implementado:**
+  - `Dictionary` - Type alias para `map[string]string`
+- **Métodos implementados:**
+  - `(d Dictionary) Search()` - Busca palavra com tratamento de erro
+- **Destaques:**
+  - Uso do segundo valor booleano dos maps (`ok`)
+  - Variável global de erro `ErrNotFound`
+  - Subtestes para cenários "known word" e "unknown word"
+  - Helper `assertStrings()` para comparar erros
+- **Status:** ✅ Concluído
+
+### 🎯 Exercício Prático: Sistema de Notificações
+- **Conceitos aplicados:**
+  - Polimorfismo com interfaces
+  - Múltiplas implementações de uma mesma interface
+  - Slices de interfaces
+  - Structs com diferentes campos
+  - Aplicação prática de tudo aprendido
+- **Arquivo:** [`notifications.go`](exercises/structsMethodsInterfaces/notifications/notifications.go)
+- **Tipos implementados:**
+  - `NotificacaoEmail` - Notificação por email
+  - `NotificacaoSMS` - Notificação por SMS
+  - `NotificacaoPush` - Notificação push
+  - `Notificator` - Interface comum
+- **Funcionalidade:**
+  - Sistema completo de notificações para e-commerce
+  - Função `ConcluirCompra()` polimórfica
+  - Demonstração prática no `main()`
+- **Status:** ✅ Concluído
+
 ### 📚 TDD Types (Documentação)
 - **Conceitos documentados:**
   - `func Test*` - Testes unitários básicos
@@ -137,9 +251,6 @@ go test -bench=.
 - **Arquivo:** [`TDD_test.go`](TDD-types/TDD_test.go)
 
 ### 🔜 Próximos Passos
-- [ ] Structs, Methods & Interfaces
-- [ ] Pointers & Errors
-- [ ] Maps
 - [ ] Dependency Injection
 - [ ] Mocking
 - [ ] Concurrency
@@ -148,6 +259,12 @@ go test -bench=.
 - [ ] Sync
 - [ ] Context
 - [ ] Property Based Tests
+- [ ] Reading Files
+- [ ] Templating
+- [ ] Generics
+- [ ] Revisiting Arrays and Slices with generics
+- [ ] HTTP Server
+- [ ] JSON, routing and embedding
 
 ## 💡 Principais Aprendizados
 
@@ -167,6 +284,22 @@ O ciclo TDD que estou praticando:
 - Subtestes com `t.Run()` para organização
 - `t.Helper()` para melhor debugging
 - Manter testes simples e legíveis
+- Table-driven tests para cenários múltiplos
+- Helper functions para reutilização de código
+
+#### Structs e Interfaces
+- Métodos associam comportamento a tipos
+- Receivers de ponteiro `*Type` para mutabilidade
+- Interfaces resolvidas implicitamente em Go
+- Polimorfismo através de interfaces comuns
+- Nomes começando com minúscula são privados ao pacote
+
+#### Erros
+- Usar variáveis globais para erros comuns (`var Err...`)
+- Retornar `error` como último valor de retorno
+- `error` pode ser `nil` (é uma interface)
+- Implementar `String()` para formatação customizada
+- Usar `t.Fatal()` quando erro é inesperado
 
 #### Performance
 - Usar `strings.Builder` para concatenação eficiente
@@ -178,6 +311,8 @@ O ciclo TDD que estou praticando:
 - Usar parâmetros variádicos `...Type` para flexibilidade
 - Arrays têm tamanho fixo `[5]int`, slices são dinâmicos `[]int`
 - `make()` pré-aloca capacidade, `append()` cresce dinamicamente
+- Maps retornam dois valores: `value, ok := map[key]`
+- Types customizados permitem adicionar métodos a tipos primitivos
 
 ### Comparações de Performance
 
@@ -194,14 +329,47 @@ O ciclo TDD que estou praticando:
   - `strings` - Manipulação de strings
   - `slices` - Operações com slices
   - `fmt` - Formatação e I/O
+  - `math` - Operações matemáticas (Pi)
+  - `errors` - Criação de erros customizados
+  - `testing` - Framework de testes
 
 ## 📊 Estatísticas do Projeto
 
-- **Módulos concluídos:** 4/15 (27%)
-- **Testes escritos:** 15+
+- **Módulos concluídos:** 7/25 (28%)
+- **Exercícios práticos:** 1
+- **Testes escritos:** 35+
 - **Benchmarks:** 1
 - **Examples:** 4
-- **Linhas de código:** ~300+
+- **Linhas de código:** ~800+
+- **Structs criadas:** 8
+- **Interfaces definidas:** 2
+- **Métodos implementados:** 15+
+
+## 🎓 Conceitos Dominados
+
+### Fundamentos
+✅ Sintaxe básica  
+✅ Funções e variáveis  
+✅ Controle de fluxo (if, switch, for)  
+✅ Types customizados  
+
+### Estruturas de Dados
+✅ Arrays e Slices  
+✅ Maps  
+✅ Structs  
+
+### Programação Orientada a Objetos
+✅ Métodos  
+✅ Receivers (valor e ponteiro)  
+✅ Interfaces  
+✅ Polimorfismo  
+
+### Avançado
+✅ Ponteiros e mutabilidade  
+✅ Tratamento de erros  
+✅ Table-driven tests  
+✅ Benchmarking  
+✅ Interface Stringer  
 
 ## 📚 Recursos
 
@@ -210,6 +378,7 @@ O ciclo TDD que estou praticando:
 - [Go by Example](https://gobyexample.com/)
 - [Effective Go](https://golang.org/doc/effective_go)
 - [Go Package Documentation](https://pkg.go.dev/)
+- [Go Wiki - Table Driven Tests](https://go.dev/wiki/TableDrivenTests)
 
 ## 🤝 Contribuições
 
@@ -234,4 +403,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 💬 Dúvidas ou sugestões? Abra uma issue!
 
-*Última atualização: Janeiro 2025*
+🚀 Progresso: **7/25 módulos** - Continue assim!
+
+*Última atualização: Novembro 2025*
