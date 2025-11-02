@@ -16,6 +16,19 @@ func TestWallet(t *testing.T) {
 		}
 	}
 
+	assertError := func(t testing.TB, got error, want error) {
+		t.Helper()
+
+		if got == nil {
+			t.Fatal("didn't get an error but wanted one")
+		}
+
+		if got != want {
+			// .Errorf pode converter um erro em uma string
+			t.Errorf("got %q, want %q", got, want)
+		}
+	}
+
 	t.Run("deposit", func(t *testing.T) {
 		wallet := Wallet{}
 
@@ -43,6 +56,13 @@ func TestWallet(t *testing.T) {
 
 		checkError(t, wallet, Bitcoin(0))
 	})
-}
 
-// In Go, if you want to indicate an error it is idiomatic for your function to return an err for the caller to check and act on.
+	t.Run("withdraw insufficient funds", func(t *testing.T) {
+		startingBallance := Bitcoin(20)
+		wallet := Wallet{startingBallance}
+		err := wallet.Withdraw(Bitcoin(100))
+
+		checkError(t, wallet, startingBallance)
+		assertError(t, err, ErrInsufficientFunds)
+	})
+}

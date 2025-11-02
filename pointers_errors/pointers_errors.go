@@ -1,6 +1,9 @@
 package pointers_errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Bitcoin int
 
@@ -33,8 +36,19 @@ func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(number Bitcoin) {
+var ErrInsufficientFunds = errors.New("cannot withdraw, insufficient funds")
+
+// error pode ser nil (NULL) pois ele é uma interface
+// Se qualquer outra interface for retornada ela pode ser nil
+func (w *Wallet) Withdraw(number Bitcoin) error {
+	actualBalance := w.balance
+	if actualBalance < number {
+		return ErrInsufficientFunds
+	}
+
 	w.balance -= number
+
+	return nil
 }
 
 // Aqui nao seria necessario o ponteiro, mas é melhor deixar para consistencia
